@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="50px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="50px"
+            android:background="@android:color/transparent"
+            android:fontFamily="courier"
+            android:text="Type text, secret key and id to Encrypt"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/encryptstring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50px"
+            android:layout_marginLeft="50px"
+            android:layout_marginEnd="50px"
+            android:layout_marginRight="50px"
+            android:layout_marginBottom="50px"
+            android:background="@android:color/darker_gray"
+            android:ems="10"
+            android:fontFamily="courier"
+            android:hint="StringToEncrypt"
+            android:inputType="textPersonName"
+            android:padding="10px"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/encryptkey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50px"
+            android:layout_marginLeft="50px"
+            android:layout_marginEnd="50px"
+            android:layout_marginRight="50px"
+            android:layout_marginBottom="50px"
+            android:background="@android:color/darker_gray"
+            android:ems="10"
+            android:fontFamily="courier"
+            android:hint="Key"
+            android:inputType="textPersonName"
+            android:padding="10px"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/encryptid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50px"
+            android:layout_marginLeft="50px"
+            android:layout_marginEnd="50px"
+            android:layout_marginRight="50px"
+            android:layout_marginBottom="50px"
+            android:background="@android:color/darker_gray"
+            android:editable="false"
+            android:ems="10"
+            android:fontFamily="courier"
+            android:hint="ID (0-9)"
+            android:inputType="number"
+            android:padding="10px"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/encryptbtn"
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20px"
+            android:layout_marginLeft="20px"
+            android:layout_marginEnd="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginBottom="20px"
+            android:background="@android:color/darker_gray"
+            android:fontFamily="courier"
+            android:text="Encrypt"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/green"
+            app:rippleColor="@color/black" />
+
+
+        <Button
+            android:id="@+id/goBack"
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:fontFamily="courier"
+            android:text="Back"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            app:backgroundTint="@color/green"
+            app:rippleColor="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/encstring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10"
+            android:fontFamily="courier"
+            android:gravity="start|top"
+            android:hint="Note: Encryption hide your passwords or strings!\n\nNote: Don't ever forget the key and id in order to decrypt it!\n\nNote: TekaSecure checks website and also encrpyt or decrypts with the use of 120620ENC\n\nNote: 120620ENC Encryption is an encryption created by me, it requires key and an id in order to encrypt or decrypt a string"
+            android:inputType="none"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textIsSelectable="true"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

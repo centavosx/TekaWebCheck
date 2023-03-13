@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="50px">
+
+            <EditText
+                android:id="@+id/listofwifi"
+                android:layout_width="match_parent"
+                android:layout_height="212dp"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="10px"
+                android:clickable="true"
+                android:editable="false"
+                android:fontFamily="courier"
+                android:gravity="top"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="20px"
+                android:background="@android:color/transparent"
+                android:fontFamily="courier"
+                android:text="Type WiFi SSID near you to Hack."
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/ssid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="30px"
+                android:background="@android:color/darker_gray"
+                android:ems="10"
+                android:fontFamily="courier"
+                android:hint="SSID"
+                android:inputType="textPersonName"
+                android:padding="10px"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/hackwifi"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="30px"
+                android:background="@android:color/darker_gray"
+                android:fontFamily="courier"
+                android:text="BruteForce"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:backgroundTint="@color/green"
+                app:rippleColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10px"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="10px"
+                android:layout_marginEnd="10px"
+                android:layout_marginRight="10px"
+                android:background="@android:color/transparent"
+                android:fontFamily="courier"
+                android:gravity="center"
+                android:text="Dictionary attack:"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/hackwifi2"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="30px"
+                android:background="@android:color/darker_gray"
+                android:fontFamily="courier"
+                android:text="Common"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:backgroundTint="@color/green"
+                app:rippleColor="@color/black" />
+
+            <Button
+                android:id="@+id/hackwifi3"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="20px"
+                android:background="@android:color/darker_gray"
+                android:fontFamily="courier"
+                android:text="RANDOM"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:backgroundTint="@color/green"
+                app:rippleColor="@color/black" />
+
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="20px"
+                android:background="@android:color/darker_gray"
+                android:fontFamily="courier"
+                android:text="Reset"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/green"
+                app:rippleColor="@color/black" />
+
+
+            <Button
+                android:id="@+id/goBack"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginEnd="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginBottom="10px"
+                android:fontFamily="courier"
+                android:text="Back"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:visibility="visible"
+                app:backgroundTint="@color/green"
+                app:rippleColor="@android:color/darker_gray" />
+
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/wifipass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70px"
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10"
+            android:fontFamily="courier"
+            android:gravity="start|top"
+            android:hint="Note: Hacks any wifi password but it takes long time to get the correct wifi password. \n\nNote: It uses BruteForce Method to get the correct password."
+            android:inputType="none"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textIsSelectable="true"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

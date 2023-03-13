@@ -3,13 +3,11 @@ package com.example.hackfest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,15 +15,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Timer;
@@ -34,71 +29,74 @@ import java.util.TimerTask;
 import javax.net.ssl.SSLHandshakeException;
 
 public class MainActivity extends AppCompatActivity {
-    final Activity activity = this;
     EditText url;
-    Button check, golink;
-    TextView textView, textView2;
+    Button check, golink,back;
+    TextView textViews, textView2, textView3;
+    final String[] valueurl = {""};
+    final int[] g = {View.INVISIBLE};
     ProgressBar pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final String[] valueurl = {""};
-        int checkProgress = 0;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         url = findViewById(R.id.link);
         check = findViewById(R.id.check);
         golink = findViewById(R.id.goLink);
-        textView = findViewById(R.id.textView3);
+        textViews = findViewById(R.id.textView3);
         textView2= findViewById(R.id.textView4);
         pb = findViewById(R.id.progressBar);
-
-       check.setOnClickListener(new View.OnClickListener() {
+        textView3 = findViewById(R.id.ipAdd);
+        back = findViewById(R.id.back);
+        textView3.setText("Your public ip address: "+ getPublicIPaddress());
+        check.setOnClickListener(new View.OnClickListener() {
            @SuppressLint("ResourceAsColor")
            @Override
            public void onClick(View v) {
                pb.setVisibility(v.VISIBLE);
+               final String[] message = {null};
+               final String[] title = {null};
+               final int[] res = {0};
                final int[] counter = {0};
                final Timer t = new Timer();
                TimerTask tt = new TimerTask() {
                    @Override
                    public void run()
                    {
-
                        counter[0] +=2;
                        pb.setProgress(counter[0]);
-
-                       if(counter[0] == 50){
+                       boolean check = false;
+                       try {
+                       if(counter[0] == 20) {
                            try {
                                String val = url.getText().toString().toLowerCase();
-                               boolean check = false;
-                               String message = null;
                                String urltobeused = null;
-                               try {
-                                   String removeHttps = removeHttps(val);
-                                   String site = "http://" + removeHttps;
-                                   int response = response(site);
-                                   String contents = "";
-                                   int checker = 0;
-                                   if(response != 403 || response != 401 || response!=503){
+                               String removeHttps = removeHttps(val);
+                               String site = "http://" + removeHttps;
+                               int response = response(site);
+                               String contents = "";
+                               int checker = 0;
+                               if (response != 403 || response != 401 || response != 503) {
                                    String trueSite = finalURL(site);
-
-
                                    String removedHttpTruesite = removeHttps(trueSite);
-                                   for(int i=0; i<2; i++) {
-
-                                       if(i == 0) {
-                                           String siteTest= "http://" + removedHttpTruesite;
+                                   for (int i = 0; i < 2; i++) {
+                                       if (i == 0) {
+                                           String siteTest = "http://" + removedHttpTruesite;
                                            contents = request(siteTest);
-                                           if(response != 301) {
+                                           if (response != 301) {
                                                if (contents.length() != 0) {
                                                    checker++;
                                                }
                                            }
-                                       }else{
+                                       } else {
                                            try {
                                                String siteTest = "https://" + removedHttpTruesite;
                                                int response2 = response("https://" + removeHttps);
@@ -107,69 +105,72 @@ public class MainActivity extends AppCompatActivity {
                                                } else {
                                                    contents = request(siteTest);
                                                }
-                                           }catch (Exception e){
+                                           } catch (Exception e) {
                                                contents = "";
                                            }
                                        }
                                    }
-                                       urltobeused = "http://" + removedHttpTruesite;
-                                   }else{
-                                       message = "Be Careful! This website can be harmful or a phishing site!";
-                                       check = false;
-                                   }
-
-                                   if(checker!=1) {
-                                       int checkCount = countHTMLs(contents);
-                                       message = "";
-                                       if (checkCount > 1) {
-                                           message = "This website contains ads, it can be harmful or not";
-
-                                       }
-                                       check = true;
-                                   }else{
-                                       message = "Be Careful! This website can be harmful or a phishing site!";
-                                   }
-
-                                   if(!check){
-
-                                       textView2.setText("Not Secured");
-                                       textView2.setTextColor(getResources().getColor(R.color.red));
-                                       textView.setText(message + "\nRedirected Url: " + urltobeused +"\nWebsite Hostname and IP: "+getIpAddress(urltobeused));
-                                   }else{
-                                       textView2.setText("Secured");
-                                       textView2.setTextColor(getResources().getColor(R.color.green));
-                                       textView.setText(message + "\nRedirected Url: " + urltobeused +"\nWebsite Hostname and IP: "+getIpAddress(urltobeused));
-
-                                   }
-                                   golink.setVisibility(v.VISIBLE);
-
-
-
-                               } catch (MalformedURLException e) {
-                                   message = "Website might Contain Viruses";
-                                   check = false;
-                               } catch (Exception e){
-                                   e.printStackTrace();
-                                   message = "Website not found";
+                                   urltobeused = trueSite;
+                               } else {
+                                   message[0] = "Be Careful! This website can be harmful or a phishing site!";
                                    check = false;
                                }
-                               valueurl[0] = url.getText().toString().toLowerCase();
-                               pb.setVisibility(v.INVISIBLE);
 
-                           }catch (Exception e){
-                               e.printStackTrace();
+                               if (checker != 1) {
+                                   int checkCount = countHTMLs(contents);
+                                   message[0] = "";
+                                   if (checkCount > 1) {
+                                       message[0] = "This website contains ads, it can be harmful or not";
+                                   }
+                                   check = true;
+                               } else {
+                                   message[0] = "Be Careful! This website can be harmful or a phishing site!";
+                               }
+                               if (!check) {
+                                   title[0] = "Not Secured";
+                                   res[0] = getResources().getColor(R.color.red);
+                                   message[0] = message[0] + "\nRedirected Url: " + urltobeused;
+                                   g[0] = v.VISIBLE;
+
+                               } else {
+                                   title[0] = "Secured";
+                                   res[0] = getResources().getColor(R.color.green);
+                                   message[0] = message[0] + "\nRedirected Url: " + urltobeused;
+                                   g[0] = v.VISIBLE;
+                               }
+
+                               valueurl[0] = url.getText().toString().toLowerCase();
+                           } catch (UnknownHostException e) {
+                               title[0] = "ERROR 404";
+                               res[0] = getResources().getColor(R.color.red);
+                               message[0] = "WEBSITE NOT FOUND";
+                               pb.setVisibility(v.INVISIBLE);
+                               g[0] = v.INVISIBLE;
+                           } catch (Exception e) {
+                                e.printStackTrace();
                            }
 
+                           textView2.setText(title[0]);
+                           textView2.setTextColor(res[0]);
+                           textViews.setText(message[0]);
+
+                       }else if(counter[0] == 24){
+                           pb.setVisibility(v.INVISIBLE);
+                           golink.setVisibility(g[0]);
+                           t.cancel();
                        }
 
+
+
+                       }catch (Exception e){
+
+                           e.printStackTrace();
+                       }
                    }
+
                };
-
-               t.schedule(tt,0,50);
-
-
+               t.schedule(tt,0,24);
                    }
-
                });
 
             golink.setOnClickListener(new View.OnClickListener() {
@@ -182,18 +183,25 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
     public static String removeHttps(String val){
         String protocol[] = {"http://", "https://"};
         String result = val;
-
             if(val.contains(protocol[0])) {
                 result = result.substring(7);
             }
             if(val.contains(protocol[1])){
                 result = result.substring(8);
             }
-
         return result;
     }
     public static int countHTMLs(String val){
@@ -211,12 +219,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static String finalURL(String url) throws IOException {
-        try {
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
             con.setInstanceFollowRedirects(false);
             con.connect();
             con.getInputStream();
-
+        try {
             if (con.getResponseCode() == HttpURLConnection.HTTP_MOVED_PERM || con.getResponseCode() == HttpURLConnection.HTTP_MOVED_TEMP) {
 
                 String redirectUrl = con.getHeaderField("Location");
@@ -231,7 +238,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static String request(String uri) throws IOException {
         StringBuilder sb = new StringBuilder();
-
         URL url = new URL(uri);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -246,22 +252,32 @@ public class MainActivity extends AppCompatActivity {
         }finally {
             urlConnection.disconnect();
         }
-
         return sb.toString();
     }
 
-    public static String getIpAddress(String url) throws MalformedURLException, UnknownHostException {
-
-            // Fetch IP address by getByName()
-            InetAddress ip = InetAddress.getByName(new URL(url)
-                    .getHost());
-
-            return ip.toString();
-    }
-    public static int response(String uri) throws IOException{
-        URL url = new URL(uri);
-        HttpURLConnection http = (HttpURLConnection)url.openConnection();
-        int statusCode = http.getResponseCode();
+    public static int response(String uri){
+        URL url = null;
+        int statusCode =0;
+        try {
+            url = new URL(uri);
+            HttpURLConnection http = null;
+            http = (HttpURLConnection)url.openConnection();
+            statusCode = http.getResponseCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return statusCode;
+    }
+    public static String getPublicIPaddress(){
+        String ip = null;
+        try {
+        URL whatismyip = new URL("http://checkip.amazonaws.com");
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                whatismyip.openStream()));
+        ip = in.readLine(); //you get the IP as a String
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ip;
     }
 }
